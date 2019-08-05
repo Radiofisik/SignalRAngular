@@ -12,5 +12,15 @@ namespace backend.Hubs
         {
             return Clients.All.SendAsync("Send", message);
         }
+
+        public async Task Subscribe(string scope)
+        {
+            await Groups.AddToGroupAsync(Context.ConnectionId, scope);
+        }
+
+        public async Task Unsubscribe(string scope)
+        {
+            await Groups.RemoveFromGroupAsync(Context.ConnectionId, scope);
+        }
     }
 }

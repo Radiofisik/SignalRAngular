@@ -2,3 +2,4 @@ backend/.vs/
 backend/bin/Debug/netcoreapp2.2/backend.deps.json
 backend/obj/backend.csproj.nuget.g.props
 backend/obj/
+backend/bin/

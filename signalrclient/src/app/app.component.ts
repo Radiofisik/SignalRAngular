@@ -14,11 +14,15 @@ export class AppComponent implements OnInit {
       .build();
 
     connection.on('send', data => {
-      console.log(data);
+      console.log('send', data);
+    });
+
+    connection.on('method', data => {
+      console.log('method', data);
     });
 
     connection.start()
-      .then(() => connection.invoke('send', 'hi'))
+      .then(() => connection.invoke('subscribe', 'groupName'))
       .catch(err => console.log('Error while starting connection: ' + err));
   }
 }
