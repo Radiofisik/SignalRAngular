@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import * as signalR from '@aspnet/signalr';
 
 @Component({
@@ -8,6 +8,7 @@ import * as signalR from '@aspnet/signalr';
 })
 export class AppComponent implements OnInit {
   title = 'signalrclient';
+
   ngOnInit(): void {
     const connection = new signalR.HubConnectionBuilder()
       .withUrl('https://localhost:44369/message')
@@ -21,8 +22,16 @@ export class AppComponent implements OnInit {
       console.log('method', data);
     });
 
-    connection.start()
-      .then(() => connection.invoke('subscribe', 'groupName'))
-      .catch(err => console.log('Error while starting connection: ' + err));
+    const connect = (conn) => {
+      connection.start()
+        .then(() => connection.invoke('subscribe', 'groupName'))
+        .catch(err => {
+          console.log('Error while starting connection: ' + err);
+          setTimeout(() => connect(conn), 5000);
+        });
+    };
+
+    connect(connection);
+    connection.onclose((e) => connect(connection));
   }
 }
