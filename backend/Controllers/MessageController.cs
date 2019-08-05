@@ -31,5 +31,12 @@ namespace backend.Controllers
             _hubContext.Clients.Group("groupName").SendCoreAsync("method", new[] { "hello from server to group" });
             return Ok();
         }
+
+        [HttpPost("sendToGroup2")]
+        public IActionResult SendToGroup2()
+        {
+            _hubContext.Clients.Group("groupName2").SendCoreAsync("method", new[] { "hello from server to group" });
+            return Ok();
+        }
     }
 }
